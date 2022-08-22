@@ -47,14 +47,42 @@ namespace TechJobsConsole
 
             foreach (Dictionary<string, string> row in AllJobs)
             {
-                string aValue = row[column];
+                //added to case insensitivity
+                string aValue = row[column].ToLower();
 
-                if (aValue.Contains(value))
+                if (aValue.Contains(value.ToLower()))
                 {
                     jobs.Add(row);
                 }
             }
 
+            return jobs;
+        }
+
+        //a search that looks for the search term in all of the columns.
+        //should not contain duplicate jobs.
+        //Case-insensitive
+        //Jobs a list of dictionary with key value pair
+        //AllJobs is a list of dictionary
+        //row is dictionary in Alljobs with key value pair
+
+        public static List<Dictionary<string, string>> FindByValue(string value)
+        {
+            LoadData();
+            
+            List<Dictionary<string, string>> jobs = new List<Dictionary<string , string>>();
+
+            foreach (Dictionary<string , string> row in AllJobs)
+            {
+                foreach(string job in row.Values)
+                {
+                   //value = value.ToUpper();
+                    if(job.ToUpper().Contains(value.ToUpper()) && !jobs.Contains(row))
+                    {
+                        jobs.Add(row);
+                    }
+                }
+            }
             return jobs;
         }
 
@@ -138,5 +166,8 @@ namespace TechJobsConsole
 
             return rowValues.ToArray();
         }
+
+
+
     }
 }

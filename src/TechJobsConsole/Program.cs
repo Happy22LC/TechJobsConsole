@@ -63,7 +63,12 @@ namespace TechJobsConsole
                     // Fetch results
                     if (columnChoice.Equals("all"))
                     {
-                        Console.WriteLine("Search all fields not yet implemented.");
+                        //here I need to implement the new FindByValue method
+                        //as like (FindByColumnAndValue) else statement below
+                        
+                        searchResults = JobData.FindByValue(searchTerm);
+                        PrintJobs(searchResults);
+                        //Console.WriteLine("Search all fields not yet implemented.");
                     }
                     else
                     {
@@ -118,7 +123,27 @@ namespace TechJobsConsole
 
         private static void PrintJobs(List<Dictionary<string, string>> someJobs)
         {
-            Console.WriteLine("PrintJobs is not implemented yet");
+            if (someJobs.Count == 0)
+            {
+                Console.WriteLine("No result");
+            }
+            else
+            {
+                Console.WriteLine(someJobs.Count + " Results! \n");
+                //loop for List of jobs
+                for (int i = 0; i < someJobs.Count; i++)
+                {
+                    
+                    Console.WriteLine("\n*****");
+                    //get the each dictionary key
+                    foreach (KeyValuePair<string, string> job in someJobs[i])
+                    {
+                        Console.WriteLine($"{ job.Key} : { job.Value}");
+                    }
+                    Console.WriteLine("*****");
+                }
+            }
+            
         }
     }
 }
